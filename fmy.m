@@ -2,7 +2,7 @@ function t = fmy(t1,t2,options)
 f1 = maxer(t1);
 f2 = maxer(t2);
 
-tt = fmin('maxer',t1,t2,options);
+tt = fminbnd('maxer',t1,t2,options);
 
 f3 = maxer(tt);
 f = [f1 f2 f3];
