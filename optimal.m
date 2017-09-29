@@ -46,13 +46,13 @@ mgrowth = S(1,1)^2;
 fprintf('Maximum growth in energy: %e \n',mgrowth)
 flowin = sqrt(2*ak2)*xu*invF*V(:,1);
 flowout = sqrt(2*ak2)*xu*invF*U(:,1);
-if iflag==1
-    for i =1:100
+
+for i =1:100
+    if iflag==1
         tid = ts + (tf-ts)/99*(i-1);
-        gg(i,2) = norm(expm(tid*qb))^2;
-        gg(i,1) = tid;
+    else
+        tid = 0 + (tformax)/99*(i-1);
     end
-else
-    gg(1,2)=norm(qb)^2;
-    gg(1,1) = tformax;
+    gg(i,2) = norm(expm(tid*qb))^2;
+    gg(i,1) = tid;
 end
