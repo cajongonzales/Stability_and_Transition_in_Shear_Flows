@@ -1,10 +1,10 @@
 function [flowin, flowout, gg] = optimal(d,T,M,ak2,iflag)
     global qb;
 %% Phase 1
-    [xs,es] = iord2(d);
-    xs = nlize(xs,M);
+[xs,es] = iord2(d);
+xs = nlize(xs,M);
 %% Phase 2
-    ishift =1;
+ishift =1;
 imin = -1.5;
 while imag(es(ishift))>1
     ishift = ishift + 1 ;
@@ -13,7 +13,7 @@ end
 cols = (ishift:n2);
 xu = xs(:,cols);
 eu = es(cols);
-nclos = length(cols);
+ncols = length(cols);
 fprintf('Number of modes used: %1.0f \n',ncols)
 
 %% Phase 3
@@ -46,10 +46,13 @@ mgrowth = S(1,1)^2;
 fprintf('Maximum growth in energy: %e \n',mgrowth)
 flowin = sqrt(2*ak2)*xu*invF*V(:,1);
 flowout = sqrt(2*ak2)*xu*invF*U(:,1);
-
-for i =1:100
-    tid = ts + (tf-ts)/99*(i-1);
-    gg(i,2) = norm(expm(tid*qb))^2;
-    gg(i,1) = tid;
-
+if iflag==1
+    for i =1:100
+        tid = ts + (tf-ts)/99*(i-1);
+        gg(i,2) = norm(expm(tid*qb))^2;
+        gg(i,1) = tid;
+    end
+else
+    gg(1,2)=norm(qb)^2;
+    gg(1,1) = tformax;
 end

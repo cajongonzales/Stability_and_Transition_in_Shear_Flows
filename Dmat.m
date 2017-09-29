@@ -1,5 +1,5 @@
 function [D0,D1,D2,D4] = Dmat(N)
-    num = rouns(abs(N));
+    num = round(abs(N));
     D0=[];
     vec=(0:1:num)';
     for j = 0:num
